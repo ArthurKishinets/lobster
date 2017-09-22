@@ -7,6 +7,20 @@
 var app = require('../app');
 var debug = require('debug')('krovostok:server');
 var http = require('http');
+let mongoose = require('mongoose');
+
+/**
+ * Connect to the database
+ */
+
+mongoose.connect('mongodb://arthur:kishinets@ds135574.mlab.com:35574/krovostok', 
+  { useMongoClient: true, promiseLibrary: global.Promise, config: { autoIndex: false } }, (err) => {
+    if (err)
+      throw err;
+    else
+      debug('mongodb connected');
+  });
+
 /**
  * Get port from environment and store in Express.
  */
