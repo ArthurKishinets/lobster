@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 let myPassport = require('./bin/passport');
 let passport = require('passport');
+let authRoute = require('./routes/auth');
+var router = express.Router();
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -24,10 +26,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(passport.initialize());
+app.use(passport.session());
 passport.use(myPassport.local);
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/', authRoute);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -45,6 +51,7 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+  process.emit(1);
 });
 
 module.exports = app;
