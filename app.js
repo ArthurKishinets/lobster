@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+let myPassport = require('./bin/passport');
+let passport = require('passport');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -21,6 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+passport.use(myPassport.local);
 
 app.use('/', index);
 app.use('/users', users);
