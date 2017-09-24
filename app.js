@@ -8,6 +8,7 @@ let myPassport = require('./bin/passport');
 let passport = require('passport');
 let authRoute = require('./routes/auth');
 var router = express.Router();
+let session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -22,17 +23,25 @@ app.set('view engine', 'pug');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(session({ secret: "cats" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+// app.use(cookieSession({
+//   name: 'krovostok',
+//   keys: ['key1', 'key2'],
+// }));
+
+app.use('/', index);
+app.use('/users', users);
+app.use('/', authRoute);
+
+app.use(express.static(path.join(__dirname, 'public/dist')));
 
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(myPassport.local);
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/', authRoute);
 
 
 // catch 404 and forward to error handler
