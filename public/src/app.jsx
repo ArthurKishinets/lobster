@@ -1,16 +1,32 @@
 import ReactDom from 'react-dom';
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 /**
  * Components
  */
 
 import Header from './components/header/header.jsx';
+// import Login from './pages/auth/login/login.jsx';
+// import Signup from './pages/auth/signup/signup.jsx';
+import Auth from './pages/auth/auth.jsx';
+import Main from './pages/main/main.jsx';
 
-ReactDom.render(
-  <div>
-    <Header></Header>
-    <h1>Hello, krovostok 222</h1>,
-  </div>,
-  document.getElementById('root')
-);
+function renderApp() {
+  ReactDom.render(
+    <Router>
+      <div>
+        <Header></Header>
+        <Route exact path="/" component={Main}/>
+        <Route path="/auth" component={Auth}/>
+      </div>
+    </Router>,
+    document.getElementById('root')
+  );
+}
+
+renderApp();
+
+if (module.hot) {
+  module.hot.accept('./app.jsx', renderApp);
+}
