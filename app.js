@@ -32,9 +32,9 @@ app.use(cookieParser());
 //   keys: ['key1', 'key2'],
 // }));
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/', authRoute);
+app.use('/api', index);
+app.use('/api/users', users);
+app.use('/api', authRoute);
 
 app.use(express.static(path.join(__dirname, 'public/dist')));
 

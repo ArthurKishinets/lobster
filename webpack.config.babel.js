@@ -82,12 +82,12 @@ export default (env = defaultEnv) => {
       contentBase: path.join(__dirname, "./public"),
       historyApiFallback: true,
       
-      // proxy: {
-      //   "/api": {
-      //     target: "http://localhost:3000",
-      //     pathRewrite: { "^/api": "" }
-      //   }
-      // }
+      proxy: {
+        "/api": {
+          target: "http://localhost:3000",
+          pathRewrite: { "^/api": "" }
+        }
+      }
     },  
 
   };
