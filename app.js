@@ -22,6 +22,7 @@ app.set('view engine', 'pug');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+//app.use(bodyParser);
 app.use(bodyParser.json());
 app.use(session({ secret: "cats" }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,15 +33,17 @@ app.use(cookieParser());
 //   keys: ['key1', 'key2'],
 // }));
 
-app.use('/api', index);
-app.use('/api/users', users);
-app.use('/api', authRoute);
-
-app.use(express.static(path.join(__dirname, 'public/dist')));
-
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(myPassport.local);
+
+app.use('', index);
+app.use('/users', users);
+app.use('', authRoute);
+
+app.use(express.static(path.join(__dirname, 'public/dist')));
+
+
 
 
 

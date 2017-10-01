@@ -12,7 +12,7 @@ class Login extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
-    this.signup();
+    //this.signup();
   }
 
   handleChange(name, e) {
@@ -22,23 +22,27 @@ class Login extends React.Component {
     console.log(this.state);
   }
 
-  login(e, data) {
+  async login(e, data) {
     e.preventDefault();
-    const dataToSend = {
+    const body = {
       email: e.target.email.value,
-      email: e.target.password.value
+      password: e.target.password.value
     };
-
-    
+    console.log('body ', body);
+    let res = await fetch('/api/signin', {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    res = await res.json();
   }
 
   async signup() {
-    console.time('a');
-    let resp = await fetch('/api/users');
-    resp = await resp.text();
-    console.timeEnd('a');
-    console.log('resp ', resp);
-    //return resp;
+    // let resp = await fetch('/api/users');
+    // resp = await resp.text();
   }
 
   render() {
@@ -46,7 +50,7 @@ class Login extends React.Component {
       <div>
         <h1>Login form here</h1>
         <form onSubmit={this.login}>
-          <input type="email" name="email"
+          <input type="text" name="email"
             onChange={this.handleChange.bind(this, 'email')}
             value={this.state.email}
           />
