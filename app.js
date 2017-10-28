@@ -45,6 +45,7 @@ app.use(function(req, res, next) {
 /*   var err = new Error('Not Found');
   err.status = 404;
   next(err); */
+  if (req.originalUrl.includes('.')) return next(null);
   res.sendFile(path.join(__dirname, './public/dist', 'index.html'));
 });
 
