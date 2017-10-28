@@ -12,6 +12,7 @@ let session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+let routes = require('./routes.js');
 
 var app = express();
 
@@ -28,27 +29,23 @@ app.use(session({ secret: "cats" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// app.use(cookieSession({
-//   name: 'krovostok',
-//   keys: ['key1', 'key2'],
-// }));
-
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(myPassport.local);
 
-app.use('', index);
-app.use('/self', index);
-app.use('/users', users);
-app.use('', authRoute);
+app.use('/api', index);
+app.use('/api/users', users);
+app.use('/api', authRoute);
+app.use('/api', routes);
 
 app.use(express.static(path.join(__dirname, 'public/dist')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+/*   var err = new Error('Not Found');
   err.status = 404;
-  next(err);
+  next(err); */
+  res.sendFile(path.join(__dirname, './public/dist', 'index.html'));
 });
 
 // error handler

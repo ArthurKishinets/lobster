@@ -29,10 +29,11 @@ export default (env = defaultEnv) => {
           test: /.jsx?$/,
           exclude: /node_modules/,
           include: path.join(__dirname, './public/src'),
+          enforce: "pre",
           use: {
             loader: 'babel-loader',
             options: {
-              babelrc: false,
+              babelrc: true,
               presets: [
                 ['es2015', { modules: false }],
                 'react',

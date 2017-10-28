@@ -1,3 +1,2 @@
-import fetch from 'isomorphic-fetch';
-
-export default fetch;
+import 'isomorphic-fetch';
+import "babel-polyfill";
