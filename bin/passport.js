@@ -5,7 +5,8 @@ let User = require('mongoose').model('user');
 let debug = require('debug')('passport');
 let FacebookStrategy = require('passport-facebook').Strategy;
 let configAuth = require('./const');
-var UserSchema = mongoose.model('UserSchema');
+var mongoose = require('mongoose');
+var UserSchema = mongoose.model('user');
 
 let local = new LocalStrategy({
   usernameField: 'email',
