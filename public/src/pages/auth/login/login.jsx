@@ -19,7 +19,6 @@ class Login extends React.Component {
     this.setState({
       [name]: e.target.value
     });
-    console.log(this.state);
   }
 
   async login(e, data) {
@@ -38,11 +37,6 @@ class Login extends React.Component {
       }
     });
     res = await res.json();
-  }
-
-  async signup() {
-    // let resp = await fetch('/api/users');
-    // resp = await resp.text();
   }
 
   render() {

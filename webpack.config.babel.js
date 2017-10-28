@@ -52,7 +52,7 @@ export default (env = defaultEnv) => {
     },
 
     watch: env.dev,
-    devtool: env.dev ? 'cheap-module-eval-source-map' : false,
+    devtool: env.dev ? 'eval-source-map' : false,
     plugins: [
       ...env.dev ? 
       [
