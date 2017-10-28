@@ -41,7 +41,7 @@ passport.use(new FacebookStrategy({
           if (user) {
             return done(null, user);
           } else {
-            var newUser = new UserSchema({
+            let newUser = new UserSchema({
               facebook: {
               }
             });
@@ -61,7 +61,7 @@ passport.use(new FacebookStrategy({
           }
         });
       } else {
-        var user = req.user;
+        let user = req.user;
         user.facebook.token = token; 
         user.facebook.id = profile.id; 
         user.facebook.name = profile.displayName;
