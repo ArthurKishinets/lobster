@@ -9,8 +9,8 @@ class Socials extends React.Component {
   render() {
     return <div>
       <a href="/api/auth/facebook">Facebook </a>
-      <a href="#">twitter</a>
-      <a href="#">Google+ </a>
+      <a href="/api/auth/twitter">twitter</a>
+      <a href="/api/auth/google">Google+ </a>
     </div>
   }
 }
