@@ -5,7 +5,7 @@ let User = require('mongoose').model('user');
 let debug = require('debug')('passport');
 let FacebookStrategy = require('passport-facebook').Strategy;
 let TwitterStrategy  = require('passport-twitter').Strategy;
-var GoogleStrategy = require('passport-google-oauth').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 let configAuth = require('./const');
 var mongoose = require('mongoose');
