@@ -5,6 +5,8 @@ let User = require('mongoose').model('user');
 let debug = require('debug')('passport');
 let FacebookStrategy = require('passport-facebook').Strategy;
 let TwitterStrategy  = require('passport-twitter').Strategy;
+var GoogleStrategy = require('passport-google-oauth').Strategy;
+
 let configAuth = require('./const');
 var mongoose = require('mongoose');
 var UserSchema = mongoose.model('user');
@@ -86,6 +88,7 @@ passport.use(new TwitterStrategy({
   function (req, token, tokenSecret, profile, done) {
     //process.nextTick(function () {
       if (!req.user) {
+        console.log('twitter 1');
         User.findOne({ 'twitter.id': profile.id }, function (err, user) {
           if (err)
             return done(err);
@@ -108,6 +111,7 @@ passport.use(new TwitterStrategy({
           }
         });
       } else {
+        console.log('twitter 2');
         var user = req.user;
         user.twitter.id = profile.id;
         user.twitter.token = token;
@@ -121,8 +125,8 @@ passport.use(new TwitterStrategy({
       }
     //});
   }));
-/*
-// GOOGLE ==================================================================
+
+// GOOGLE
 passport.use(new GoogleStrategy({
   clientID: configAuth.googleAuth.clientID,
   clientSecret: configAuth.googleAuth.clientSecret,
@@ -138,7 +142,6 @@ passport.use(new GoogleStrategy({
           if (user) {
             return done(null, user);
           } else {
-            var newUser = new UserSchema();
             var newUser = new UserSchema({
               google: {
                 id: profile.id,
@@ -167,7 +170,7 @@ passport.use(new GoogleStrategy({
         });
       }
     });
-  })); */
+  }));
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
