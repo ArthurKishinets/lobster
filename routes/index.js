@@ -9,7 +9,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/self', function(req, res, next) {
-  return res.send({ result: _.pick(req.user, ['email', 'password']) });
+  if (!req.user) return res.send({ status: 'user is not authenticated' });
+  // return res.send({ result: _.pick(req.user, ['email', 'password']) });
+  return res.send({ status: 'user not authenticated', result: req.user });
 });
 
 module.exports = router;
