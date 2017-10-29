@@ -38,6 +38,7 @@ passport.use(new FacebookStrategy({
   function (req, token, refreshToken, profile, done) {
     //process.nextTick(function () {
       if (!req.user) {
+        console.log('Facebook 1');
         User.findOne({ 'facebook.id': profile.id }, function (err, user) {
           if (err)
             return done(err);
@@ -48,6 +49,7 @@ passport.use(new FacebookStrategy({
               facebook: {
               }
             });
+            console.log('Facebook 2');
             newUser.facebook.token = token;
             newUser.facebook.id = profile.id; 
             newUser.facebook.name = profile.displayName;
@@ -64,6 +66,7 @@ passport.use(new FacebookStrategy({
           }
         });
       } else {
+        console.log('Facebook 3');
         let user = req.user;
         user.facebook.token = token; 
         user.facebook.id = profile.id; 
@@ -99,6 +102,7 @@ passport.use(new TwitterStrategy({
               twitter: {
               }
             });
+            console.log('twitter 2');
             newUser.twitter.id = profile.id;
             newUser.twitter.token = token;
             newUser.twitter.username = profile.username;
@@ -111,7 +115,7 @@ passport.use(new TwitterStrategy({
           }
         });
       } else {
-        console.log('twitter 2');
+        console.log('twitter 3');
         var user = req.user;
         user.twitter.id = profile.id;
         user.twitter.token = token;
@@ -136,12 +140,14 @@ passport.use(new GoogleStrategy({
   function (req, token, refreshToken, profile, done) {
     process.nextTick(function () {
       if (!req.user) {
+        console.log('google 1');
         User.findOne({ 'google.id': profile.id }, function (err, user) {
           if (err)
             return done(err);
           if (user) {
             return done(null, user);
           } else {
+            console.log('google 2');
             var newUser = new UserSchema({
               google: {
                 id: profile.id,
@@ -158,6 +164,7 @@ passport.use(new GoogleStrategy({
           }
         });
       } else {
+        console.log('google 3');
         var user = req.user;
         user.google.id = profile.id;
         user.google.token = token;
