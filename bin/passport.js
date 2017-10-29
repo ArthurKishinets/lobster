@@ -4,6 +4,7 @@ require('./mongoose');
 let User = require('mongoose').model('user');
 let debug = require('debug')('passport');
 let FacebookStrategy = require('passport-facebook').Strategy;
+let TwitterStrategy  = require('passport-twitter').Strategy;
 let configAuth = require('./const');
 var mongoose = require('mongoose');
 var UserSchema = mongoose.model('user');
@@ -74,39 +75,27 @@ passport.use(new FacebookStrategy({
       }
     //});
   }));
-/*
-// Twitter =======================
+
+// Twitter 
 passport.use(new TwitterStrategy({
-  // pull in our app id and secret from our auth.js file
   consumerKey: configAuth.twitterAuth.consumerKey,
   consumerSecret: configAuth.twitterAuth.consumerSecret,
   callbackURL: configAuth.twitterAuth.callbackURL,
   passReqToCallback: true
 },
-  // facebook will send back the token and profile
   function (req, token, tokenSecret, profile, done) {
-    // asynchronous
-    process.nextTick(function () {
+    //process.nextTick(function () {
       if (!req.user) {
-        // find the user in the database based on their facebook id
         User.findOne({ 'twitter.id': profile.id }, function (err, user) {
-          // if there is an error, stop everything and return that
-          // ie an error connecting to the database
           if (err)
             return done(err);
-          // if the user is found, then log them in
           if (user) {
-            return done(null, user); // user found, return that user
+            return done(null, user);
           } else {
-            // if there is no user found with that facebook id, create them
             var newUser = new UserSchema({
               twitter: {
               }
             });
-            console.log('profile', profile);
-            console.log('token', token);
-            console.log('newUser', newUser);
-            // set all of the facebook information in our user model
             newUser.twitter.id = profile.id;
             newUser.twitter.token = token;
             newUser.twitter.username = profile.username;
@@ -114,7 +103,6 @@ passport.use(new TwitterStrategy({
             newUser.save(function (err) {
               if (err)
                 throw err;
-              // if successful, return the new user
               return done(null, newUser);
             });
           }
@@ -131,9 +119,9 @@ passport.use(new TwitterStrategy({
           return done(null, user);
         });
       }
-    });
+    //});
   }));
-
+/*
 // GOOGLE ==================================================================
 passport.use(new GoogleStrategy({
   clientID: configAuth.googleAuth.clientID,
