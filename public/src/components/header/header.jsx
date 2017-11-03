@@ -7,6 +7,7 @@ function Header() {
   return (
     <header>
       <li><Link to="/auth">auth</Link></li>
+      <li><Link to="/profile">profile</Link></li>
       <li><Link to="/">main</Link></li>
     </header>
   );

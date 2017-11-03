@@ -9,6 +9,8 @@ let passport = require('passport');
 let authRoute = require('./routes/auth');
 var router = express.Router();
 let session = require('express-session');
+let cloudinary = require('cloudinary');
+let constants = require('./bin/const');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -39,6 +41,12 @@ app.use('/api', authRoute);
 app.use('/api', routes);
 
 app.use(express.static(path.join(__dirname, 'public/dist')));
+
+cloudinary.config({ 
+  cloud_name: constants.cloud_name, 
+  api_key: constants.cloud_name, 
+  api_secret: constants.cloud_name, 
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

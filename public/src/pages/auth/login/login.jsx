@@ -4,7 +4,7 @@ import './login.scss';
 
 class Login extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       email: '',
       password: '',
