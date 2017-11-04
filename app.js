@@ -35,10 +35,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use(myPassport.local);
 
-app.use('/api', index);
-app.use('/api/users', users);
-app.use('/api', authRoute);
-app.use('/api', routes);
+app.use('/', index);
+app.use('/users', users);
+app.use('/', authRoute);
+app.use('/', routes);
 
 app.use(express.static(path.join(__dirname, 'public/dist')));
 

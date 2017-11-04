@@ -5,6 +5,7 @@ let util = require('util');
 let debug = require('debug')('req');
 
 router.post('/signin', (req, res, next) => {
+  debugger;
   if (!req.body.password || !req.body.email)
     return res.send({result: {}, status: 'Provide password and email.'});
   else {

@@ -53,7 +53,7 @@ export default (env = defaultEnv) => {
     },
 
     watch: env.dev,
-    devtool: env.dev ? 'eval-source-map' : false,
+    devtool: env.dev ? 'inline-source-map' : false,
     plugins: [
       ...env.dev ? 
       [
