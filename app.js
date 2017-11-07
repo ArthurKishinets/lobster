@@ -6,12 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 let myPassport = require('./bin/passport');
 let passport = require('passport');
-let authRoute = require('./routes/auth');
 var router = express.Router();
 let session = require('express-session');
 let cloudinary = require('cloudinary');
 let constants = require('./bin/const');
 
+let authRoute = require('./routes/auth');
 var index = require('./routes/index');
 var users = require('./routes/users');
 let routes = require('./routes.js');
@@ -43,9 +43,9 @@ app.use('/', routes);
 app.use(express.static(path.join(__dirname, 'public/dist')));
 
 cloudinary.config({ 
-  cloud_name: constants.cloud_name, 
-  api_key: constants.cloud_name, 
-  api_secret: constants.cloud_name, 
+  cloud_name: constants.cloudinary.cloud_name, 
+  api_key: constants.cloudinary.api_key, 
+  api_secret: constants.cloudinary.api_secret, 
 });
 
 // catch 404 and forward to error handler
