@@ -1,3 +1,5 @@
+import userActions from './user';
+
 export const addPost = (text) => ({
   type: 'ADD_POST',
   id: Date.now + Math.random(),
@@ -9,3 +11,5 @@ export const updatePost = (text, id) => ({
   id,
   text,
 });
+
+export let updateUser = userActions.updateUser;

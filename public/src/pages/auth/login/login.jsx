@@ -1,63 +1,20 @@
-import React from 'react';
+import { connect } from 'react-redux';
+import { updateUser } from '../../../redux/actions';
+import Login from './login.component';
 
-import './login.scss';
+const mapStateToProps = (state, props) => ({
+  profile: state.user,
+});
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.login = this.login.bind(this);
-    //this.signup();
-  }
+const mapDispatchToProps = (dispatch, props) => ({
+  updateUser: (user) => {
+    dispatch(updateUser(user));
+  },
+});
 
-  handleChange(name, e) {
-    this.setState({
-      [name]: e.target.value
-    });
-  }
+const LoginContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);
 
-  async login(e, data) {
-    e.preventDefault();
-    const body = {
-      email: e.target.email.value,
-      password: e.target.password.value
-    };
-    console.log('body ', body);
-    let res = await fetch('/api/signin', {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    res = await res.json();
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Login form here</h1>
-        <form onSubmit={this.login}>
-          <input type="text" name="email"
-            onChange={this.handleChange.bind(this, 'email')}
-            value={this.state.email}
-          />
-          <br></br><br></br>
-          <input type="password" name="password"
-            onChange={this.handleChange.bind(this, 'password')}
-            value={this.state.password}
-          />
-          <br></br><br></br>
-          <button>Login</button>
-        </form>
-      </div>
-    )
-  }
-}
-
-export default Login;
+export default LoginContainer;

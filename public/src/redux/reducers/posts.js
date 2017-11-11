@@ -11,6 +11,8 @@ const posts = (state = [], action) => {
     case 'UPDATE_POST':
       return state.map((post, i) => post.id === action.id ? 
         { id: action.id, text: action.text } : post);
+    default:
+      return state;
   }
 };
 
