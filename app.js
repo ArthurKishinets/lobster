@@ -28,7 +28,13 @@ app.use(logger('dev'));
 //app.use(bodyParser);
 app.use(bodyParser.json());
 app.use(session({ secret: "cats" }));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false,
+  cookie : {
+    //secure : false,
+    maxAge : (4 * 60 * 60 * 1000),
+  }
+}));
 app.use(cookieParser());
 
 app.use(passport.initialize());

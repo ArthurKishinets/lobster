@@ -11,7 +11,7 @@ router.post('/signin', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
       if (err) return next(err);
       if (!Object.keys(user).length) return res.send({result: {}, status: 'There is no such user'});
-      req.logIn(user, (err) => {
+      req.login(user, (err) => {
         if (err) return next(err);
         return res.send({result: user, status: 'U successfully logged in'});
       });
@@ -33,7 +33,7 @@ router.post('/signup', (req, res, next) => {
     let user = new User({ nickname: req.body.nickname, email: req.body.email, password: req.body.password });
     user.save((err) => {
       if (err) return next(err);
-      req.logIn(user, (err) => {
+      req.login(user, (err) => {
         if (err) return next(err);
         return res.send({ status: 'user successfully signed up' });
       });

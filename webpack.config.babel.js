@@ -21,6 +21,8 @@ export default (env = defaultEnv) => {
       filename: '[name].js',
       path: path.join(__dirname, './public/dist'),
       publicPath: '/',
+      libraryTarget: "var",
+      library: "lobster",
     },
 
     module: {
@@ -31,7 +33,7 @@ export default (env = defaultEnv) => {
           include: path.join(__dirname, './public/src'),
           enforce: "pre",
           use: {
-            loader: 'babel-loader',
+            loader: 'babel',
             options: {
               babelrc: true,
               presets: [
@@ -44,8 +46,8 @@ export default (env = defaultEnv) => {
         {
           test: /\.(css|scss|sass)$/,
           loader: env.dev ? 'style!css!sass' : ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: ['css-loader', 'sass-loader']
+            fallback: 'style',
+            use: ['css', 'sass']
           })
         },
 
@@ -75,6 +77,8 @@ export default (env = defaultEnv) => {
     resolve: {
       extensions: ['.js', '.jsx'],
     },
+    parallelism: 10,
+    bail: true,
     devServer: {
       hot: env.dev,
       host: 'localhost',
@@ -82,7 +86,6 @@ export default (env = defaultEnv) => {
       publicPath: "/",
       contentBase: path.join(__dirname, "./public"),
       historyApiFallback: true,
-      
       proxy: {
         "/api": {
           target: "http://localhost:3000",

@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
-import { userActions } from '../../redux/actions';
-import { Profile } from './profile/component';
+import { userActions, updateUser } from '../../redux/actions';
+import Profile from './profile.component';
 
 const mapStateToProps = (state, props) => ({
-  profile: state.user,
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-
+  updateUser: (user) => {
+    dispatch(updateUser(user));
+  },
 });
 
 const ProfileContainer = connect(

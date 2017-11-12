@@ -13,6 +13,13 @@ class Profile extends React.Component {
     this.saveUser = this.saveUser.bind(this);
   }
 
+  componentWillMount() {
+    console.log('user ', this.props.user);
+  }
+  componentDidMount() {
+    console.log('user ', this.props.user);
+  }
+
   saveUser(e) {
     e.preventDefault();
     if (!this.state.files.length) {
@@ -24,7 +31,6 @@ class Profile extends React.Component {
       console.log(' files to append ', this.state.filesToSend[file].name, this.state.filesToSend[file]);
       formData.append(`${this.state.filesToSend[file].name}`, this.state.filesToSend[file]);
     }
-    debugger;
     fetch('/api/users/profile/photo', {
       method: 'POST',
       credentials: 'include',
@@ -33,12 +39,25 @@ class Profile extends React.Component {
       },
       body: formData,
     })
-    .then(r => r.text())
-    .then(r => {debugger})
-    .catch(e => {debugger});
+    .then(r => r.json())
+    .then(r => {
+      console.log('r ', r);
+      return r;
+    })
+    .then(r => {
+      this.props.updateUser({ photos: r.photos });
+      for (var key of formData.keys()) {
+        formData.delete(key);
+      };
+      this.setState({
+        files: [],
+      });
+    })
+    .catch(e => console.error(e));
   }
 
   filesChanged(e) {
+    e.persist();
     console.log('files changed', e.target.files);
     let copideFiles = Object.assign({}, e.target.files);
     this.setState((prevState) => ({
@@ -59,6 +78,7 @@ class Profile extends React.Component {
         this.setState({
           files: filesInfo,
         });
+        e.target.value = null;
       };
       reader.readAsDataURL(f);
     });
@@ -77,6 +97,9 @@ class Profile extends React.Component {
         </form>
         <p>filesInfo</p>
         <div>{this.state.files}</div>
+        <div>{this.props.user.photos && this.props.user.photos.map(photo => {
+          return <img key={photo} src={photo} alt="photo"/>;
+        })}</div>
       </div>
     );
   }

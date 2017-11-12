@@ -17,10 +17,9 @@ router.post('/profile/photo', checkAuthentication, function(req, res, next) {
   const form = new formidable.IncomingForm();
   form.maxFieldsSize = 1 * 1024 * 1024;
   form.multiples = true;
-  let files = [];
-
+  let filesSentCount = 0;
+  let filesSavedCount = 0;
   form.on('file', (field, file) => {
-    console.log(field, file);
     cloudinary.uploader.upload(file.path, function(result) {
       if (result.error) {
         return;
@@ -29,19 +28,20 @@ router.post('/profile/photo', checkAuthentication, function(req, res, next) {
       req.user.save((e) => {
         if (e)
           throw e;
+        filesSavedCount++;
+        if (filesSavedCount === filesSentCount)
+          res.status(200).json({ photos: req.user.photos });
       });
       console.log('request ', req);
     });
-    files.push([field, file]);
   })
   .on('error', function(err) {
     console.error(err);
     process.exit(1);
   })
-  .on('end', function () {
-    res.status(200).json(JSON.stringify({photos: req.user.photos}));
+  .on('file', function () {
+    filesSentCount++;
   });
-
   form.parse(req);
   return;
 });
