@@ -1,6 +1,6 @@
 import ReactDom from 'react-dom';
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux'
 import reducer from './redux'
@@ -26,11 +26,14 @@ function renderApp() {
     <Router>
       <Provider store={store}>
         <div>
-          <Header></Header>
-          <Route exact path="/" component={Main}/>
-          <Route path="/auth" component={Auth}/>
-          <Route path="/profile" component={ProfileContainer}/>
           <Interceptor></Interceptor>
+          
+          <Header></Header>
+          <Switch>
+            <Route exact path="/" component={Main}/>
+            <Route path="/auth" component={Auth}/>
+            <Route path="/profile" component={ProfileContainer}/>
+          </Switch>
         </div>
       </Provider>
     </Router>,

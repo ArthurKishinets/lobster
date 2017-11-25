@@ -13,13 +13,6 @@ class Profile extends React.Component {
     this.saveUser = this.saveUser.bind(this);
   }
 
-  componentWillMount() {
-    console.log('user ', this.props.user);
-  }
-  componentDidMount() {
-    console.log('user ', this.props.user);
-  }
-
   saveUser(e) {
     e.preventDefault();
     if (!this.state.files.length) {
@@ -85,6 +78,8 @@ class Profile extends React.Component {
   }
 
   render() {
+    if (!_.keys(this.props.user).length) return null;
+
     return (
       <div>
         <h1>Profile component</h1>

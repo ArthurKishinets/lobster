@@ -1,16 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
+import { userActions, updateUser } from '../../redux/actions';
+import HeaderComponent from './header.component';
 
-import './header.scss';
+const mapStateToProps = (state, props) => ({
+  user: state.user,
+  nickname: state.user.nickname,
+});
 
-function Header() {
-  return (
-    <header>
-      <li><Link to="/auth">auth</Link></li>
-      <li><Link to="/profile">profile</Link></li>
-      <li><Link to="/">main</Link></li>
-    </header>
-  );
-}
+const mapDispatchToProps = (dispatch, props) => ({
+  updateUser: (user) => {
+    dispatch(updateUser(user));
+  },
+});
 
-export default Header;
+const Header = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HeaderComponent);
+
+export default withRouter(Header);

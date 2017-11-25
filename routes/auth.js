@@ -30,7 +30,12 @@ router.post('/signup', (req, res, next) => {
         res.send({ status: 'user with that email is already exist' });
       return;
     }
-    let user = new User({ nickname: req.body.nickname, email: req.body.email, password: req.body.password });
+    let user = new User({ 
+      nickname: req.body.nickname,
+      email: req.body.email,
+      password: req.body.password,
+      user_group: 1,
+    });
     user.save((err) => {
       if (err) return next(err);
       req.login(user, (err) => {

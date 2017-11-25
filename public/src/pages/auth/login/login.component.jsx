@@ -36,8 +36,10 @@ class Login extends React.Component {
       }
     });
     res = await res.json();
-    this.props.updateUser(res.result);
-    console.log('login user updated ');
+    if(Object.keys(res.result).length) {
+      this.props.updateUser(res.result);
+      console.log('login user updated ');
+    }
   }
 
   render() {
