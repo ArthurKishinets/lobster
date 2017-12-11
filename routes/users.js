@@ -5,15 +5,14 @@ const formidable = require('formidable');
 const util = require('util');
 const cloudinary = require('cloudinary');
 const constants = require('../bin/const');
-var mongoose = require('mongoose');
-var UserSchema = mongoose.model('user');
+const mongoose = require('mongoose');
+const UserSchema = mongoose.model('user');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
+module.exports.allUsers = function(req, res, next) {
   res.send('respond with a resource');
-});
+};
 
-router.post('/profile/photo', checkAuthentication, function(req, res, next) {
+module.exports.profilePhoto = function(req, res, next) {
   const form = new formidable.IncomingForm();
   form.maxFieldsSize = 1 * 1024 * 1024;
   form.multiples = true;
@@ -44,6 +43,4 @@ router.post('/profile/photo', checkAuthentication, function(req, res, next) {
   });
   form.parse(req);
   return;
-});
-
-module.exports = router;
+};

@@ -11,10 +11,10 @@ let session = require('express-session');
 let cloudinary = require('cloudinary');
 let constants = require('./bin/const');
 
-let authRoute = require('./routes/auth');
+/* let authRoute = require('./routes/auth');
 var index = require('./routes/index');
-var users = require('./routes/users');
-let routes = require('./routes.js');
+var users = require('./routes/users');*/
+let routes = require('./routes.js'); 
 
 var app = express();
 
@@ -41,9 +41,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use(myPassport.local);
 
-app.use('/', index);
+/* app.get('/', index);
 app.use('/users', users);
-app.use('/', authRoute);
+app.use('/', authRoute); */
 app.use('/', routes);
 
 app.use(express.static(path.join(__dirname, 'public/dist')));
@@ -59,8 +59,9 @@ app.use(function(req, res, next) {
 /*   var err = new Error('Not Found');
   err.status = 404;
   next(err); */
+  console.log('req.originalUrl ', req.originalUrl);
   if (req.originalUrl.includes('.')) return next(null);
-  res.sendFile(path.join(__dirname, './public/dist', 'index.html'));
+  //res.sendFile(path.join(__dirname, './public/dist', 'index.html'));
 });
 
 // error handler

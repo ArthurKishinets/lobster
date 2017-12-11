@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "DEBUG=krovostok:server,req,mongoose node ./bin/www",
+    "nodemon": "DEBUG=krovostok:server,req,mongoose nodemon ./bin/www",
     "w": "webpack-dev-server --env.dev --config webpack.config.babel.js --colors",
     "wp": "rm -rf public/dist && webpack -p --env.production --config webpack.config.babel.js --colors"
   },

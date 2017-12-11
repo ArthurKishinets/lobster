@@ -1,10 +1,11 @@
-let passport = require('passport');
-let router = require('express').Router();
-let User = require('mongoose').model('user');
-let util = require('util');
-let debug = require('debug')('req');
+const passport = require('passport');
+const router = require('express').Router();
+const User = require('mongoose').model('user');
+const util = require('util');
+const debug = require('debug')('req');
 
-router.post('/signin', (req, res, next) => {
+module.exports.signIn = function (req, res, next) {
+  console.log('signIn signIn');
   if (!req.body.password || !req.body.email)
     return res.send({result: {}, status: 'Provide password and email.'});
   else {
@@ -17,9 +18,9 @@ router.post('/signin', (req, res, next) => {
       });
     })(req, res, next);
   }
-});
+};
 
-router.post('/signup', (req, res, next) => {
+module.exports.signUp = function(req, res, next) {
   if (!req.body.nickname || !req.body.email || !req.body.password)
     return res.send({status: 'Not enough information'});
   User.find({ $or: [{ email: req.body.email}, {nickname : req.body.nickname}] }, (err, existingUser) => {
@@ -44,6 +45,4 @@ router.post('/signup', (req, res, next) => {
       });
     });
   });
-});
-
-module.exports = router;
+};

@@ -18,21 +18,14 @@ class InterceptorComponent extends React.Component {
     this.getSelf().then(r => {
       localStorage.user = r;
       this.props.updateUser(r.result);
+      console.log('r.result ', r.result);
     }).catch(e => console.info(e));
   }
   
   componentWillReceiveProps(nextProps) {
-    //this.props.setLocation(nextProps.location);
-    // console.log('next props ', nextProps);
-    // console.log('our user ', this.props.user);
-    // console.log('routes[nextProps.location.pathname] ', routes[nextProps.location.pathname]);
-    // console.log('this.props.user.user_group ', this.props.user.user_group);
-    // console.log('33 ', routes[nextProps.location.pathname] > (this.props.user.user_group || 0));
-    //debugger;
     if(routes[nextProps.location.pathname] > (this.props.user.user_group || 0)) {
       console.log('back ');
       history.go(-1);
-      //setTimeout(() => window.history.back(), 0);
     }
   }
 

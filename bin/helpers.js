@@ -6,4 +6,6 @@ function checkAuthentication(req, res, next){
     }
 }
 
-module.exports.checkAuthentication = checkAuthentication;
+module.exports = {
+    checkAuthentication,
+};
