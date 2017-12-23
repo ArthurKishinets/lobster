@@ -6,6 +6,5 @@ export getSelf = async () => {
     credentials: 'include',
   });
   res = await res.json();
-  console.log('self ', res);
   return res;
 };

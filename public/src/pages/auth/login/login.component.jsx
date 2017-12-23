@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router'
 
 import './login.scss';
 
@@ -26,7 +27,6 @@ class Login extends React.Component {
       email: e.target.email.value,
       password: e.target.password.value
     };
-    console.log('body ', body);
     let res = await fetch('/api/signin', {
       method: 'POST',
       credentials: 'include',
@@ -38,11 +38,13 @@ class Login extends React.Component {
     res = await res.json();
     if(Object.keys(res.result).length) {
       this.props.updateUser(res.result);
-      console.log('login user updated ');
     }
   }
 
   render() {
+    if (!_.isEmpty(this.props.user))
+      return (<Redirect to='/profile'></Redirect>);
+
     return (
       <div>
         <h1>Login form here</h1>

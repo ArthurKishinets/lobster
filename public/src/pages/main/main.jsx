@@ -1,11 +1,21 @@
-import React from 'react';
+import { connect } from 'react-redux';
+//import { updateUser } from '../../../redux/actions';
+import Main from './main.component';
 
-import './main.scss';
+const mapStateToProps = (state, props) => ({
+  user: state.user,
+  main: state.main,
+});
 
-function Main() {
-  return (
-    <h1>Main component</h1>
-  );
-}
+const mapDispatchToProps = (dispatch, props) => ({
+  // updateUser: (user) => {
+  //   dispatch(updateUser(user));
+  // },
+});
 
-export default Main;
+const MainContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Main);
+
+export default MainContainer;

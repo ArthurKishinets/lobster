@@ -1,15 +1,7 @@
 import userActions from './user';
 
-export const addPost = (text) => ({
-  type: 'ADD_POST',
-  id: Date.now + Math.random(),
-  text,
+export const updateUser = userActions.updateUser;
+export const updateMain = (data) => ({
+  type: 'UPDATE_MAIN',
+  data,
 });
-
-export const updatePost = (text, id) => ({
-  type: 'ADD_POST',
-  id,
-  text,
-});
-
-export let updateUser = userActions.updateUser;

@@ -3,7 +3,7 @@ import { updateUser } from '../../../redux/actions';
 import Login from './login.component';
 
 const mapStateToProps = (state, props) => ({
-  profile: state.user,
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

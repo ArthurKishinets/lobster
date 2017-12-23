@@ -14,7 +14,7 @@ import Header from './components/header/header.jsx';
 // import Signup from './pages/auth/signup/signup.jsx';
 import ProfileContainer from './pages/profile/profile.jsx';
 import Auth from './pages/auth/auth.jsx';
-import Main from './pages/main/main.jsx';
+import MainContainer from './pages/main/main.jsx';
 import Interceptor from './pages/routing/interceptor/interceptor.jsx';
 import initialStore from './redux/initial.store.js';
 
@@ -30,7 +30,7 @@ function renderApp() {
           
           <Header></Header>
           <Switch>
-            <Route exact path="/" component={Main}/>
+            <Route exact path="/" component={MainContainer}/>
             <Route path="/auth" component={Auth}/>
             <Route path="/profile" component={ProfileContainer}/>
           </Switch>
