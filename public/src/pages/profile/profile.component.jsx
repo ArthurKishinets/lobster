@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router'
 
 import './profile.scss';
 
@@ -78,12 +79,13 @@ class Profile extends React.Component {
   }
 
   render() {
-    if (!_.keys(this.props.user).length) return null;
+    if (_.isEmpty(this.props.user) && this.props.main.userReceived) return <Redirect to='/auth'></Redirect>;
 
     return (
       <div>
         <h1>Profile component</h1>
         <form onSubmit={this.saveUser}>
+          <textarea name="aboutme" id="aboutme" cols="30" rows="10"></textarea>
           <label>
             profile photo:
           <input type="file" name="name" onChange={this.filesChanged} multiple />

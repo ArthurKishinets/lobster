@@ -4,6 +4,7 @@ import Profile from './profile.component';
 
 const mapStateToProps = (state, props) => ({
   user: state.user,
+  main: state.main,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

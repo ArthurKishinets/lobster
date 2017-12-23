@@ -1,5 +1,5 @@
 let routes = {
-  "/": 0,
+  "/": 1,
   "/profile": 1,
   "/auth": 0,
 };

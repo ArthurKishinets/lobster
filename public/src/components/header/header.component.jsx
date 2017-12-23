@@ -10,11 +10,20 @@ class HeaderComponent extends React.Component {
   }
 
   render() {
+    if (_.isEmpty(this.props.user)) {
+      return (
+        <ul>
+          <li><Link to="/auth">auth</Link></li>
+        </ul>
+      );
+    }
+
     return (
       <header>
-        <li><Link to="/auth">auth</Link></li>
-        {!_.isEmpty(this.props.user) && <li><Link to="/profile">profile</Link></li>}
-        <li><Link to="/">main</Link></li>
+        <ul>
+          <li><Link to="/profile">profile</Link></li>
+          <li><Link to="/">main</Link></li>
+        </ul>
       </header>
     );
   }

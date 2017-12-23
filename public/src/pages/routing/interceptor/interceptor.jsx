@@ -1,12 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { updateUser } from '../../../redux/actions/index';
+import { updateUser, updateMain } from '../../../redux/actions/index';
 import routes from '../route.rights';
-
-window.addEventListener('hashchange', (e) => {
-  console.log('onhashchange ');
-});
 
 class InterceptorComponent extends React.Component {
   constructor(props) {
@@ -14,19 +10,22 @@ class InterceptorComponent extends React.Component {
   }
 
   componentWillMount() {
-    console.log('componentWillMount Interceptor ');
     this.getSelf().then(r => {
       localStorage.user = r;
       this.props.updateUser(r.result);
-      console.log('r.result ', r.result);
+      //debugger;
+      this.props.updateMain({ userReceived: true });
+      // if(_.isEmpty(this.props.user) || routes[nextProps.location.pathname] > (this.props.user.user_group || 0)) {
+      //   debugger;
+      // }
     }).catch(e => console.info(e));
   }
   
   componentWillReceiveProps(nextProps) {
-    if(routes[nextProps.location.pathname] > (this.props.user.user_group || 0)) {
-      console.log('back ');
-      history.go(-1);
-    }
+    // if(_.isEmpty(this.props.user) || routes[nextProps.location.pathname] > (this.props.user.user_group || 0)) {
+    //   debugger;
+    //   history.go(-1);
+    // }
   }
 
   getSelf() {
@@ -45,6 +44,9 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
   updateUser: (user) => {
     dispatch(updateUser(user));
+  },
+  updateMain: (data) => {
+    dispatch(updateMain(data));
   },
 })
 
