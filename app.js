@@ -1,22 +1,22 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-let myPassport = require('./bin/passport');
-let passport = require('passport');
-var router = express.Router();
-let session = require('express-session');
-let cloudinary = require('cloudinary');
-let constants = require('./bin/const');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const myPassport = require('./bin/passport');
+const passport = require('passport');
+const router = express.Router();
+const session = require('express-session');
+const cloudinary = require('cloudinary');
+const constants = require('./bin/const');
 
-/* let authRoute = require('./routes/auth');
-var index = require('./routes/index');
-var users = require('./routes/users');*/
-let routes = require('./routes.js'); 
+/* const authRoute = require('./routes/auth');
+const index = require('./routes/index');
+const users = require('./routes/users');*/
+const routes = require('./routes.js'); 
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

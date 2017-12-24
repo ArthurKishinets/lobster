@@ -22,9 +22,9 @@ router.get('/api/auth/google/callback', passport.authenticate('google',
 
 router.get('/api/', index.main);
 router.get('/api/self', index.self);
-router.get('/api/profile/photo', checkAuthentication, users.profilePhoto);
+router.post('/api/self', checkAuthentication, users.profilePhoto);
 router.get('/api/users/all', checkAuthentication, users.allUsers);
 router.post('/api/signin', authRoute.signIn);
 router.post('/api/signup', authRoute.signUp);
-  
+
 module.exports = router;

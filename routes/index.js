@@ -3,6 +3,9 @@ const router = express.Router();
 const path = require('path');
 const debug = require('debug')('req');
 
+const mongoose = require('mongoose');
+const UserSchema = mongoose.model('user');
+
 /* GET home page. */
 module.exports.main = function(req, res, next) {
   res.sendFile(path.join(__dirname, '../public/dist', 'index.html'));

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { updateUser, updateMain } from '../../../redux/actions/index';
+import { updateUser, updateMain, updateProfile } from '../../../redux/actions/index';
 import routes from '../route.rights';
 
 class InterceptorComponent extends React.Component {
@@ -13,20 +13,13 @@ class InterceptorComponent extends React.Component {
     this.getSelf().then(r => {
       localStorage.user = r;
       this.props.updateUser(r.result);
-      //debugger;
+      this.props.updateProfile(r.result);
       this.props.updateMain({ userReceived: true });
-      // if(_.isEmpty(this.props.user) || routes[nextProps.location.pathname] > (this.props.user.user_group || 0)) {
-      //   debugger;
-      // }
     }).catch(e => console.info(e));
   }
   
-  componentWillReceiveProps(nextProps) {
-    // if(_.isEmpty(this.props.user) || routes[nextProps.location.pathname] > (this.props.user.user_group || 0)) {
-    //   debugger;
-    //   history.go(-1);
-    // }
-  }
+/*   componentWillReceiveProps(nextProps) {
+  } */
 
   getSelf() {
     return fetch('/api/self', { credentials: 'include' }).then(r => r.json());
@@ -47,6 +40,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   updateMain: (data) => {
     dispatch(updateMain(data));
+  },
+  updateProfile: (data) => {
+    dispatch(updateProfile(data));
   },
 })
 

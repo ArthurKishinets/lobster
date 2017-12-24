@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-export getSelf = async () => {
+export const getSelf = async () => {
   let res = await fetch('/self', {
     method: 'GET',
     credentials: 'include',

@@ -29,9 +29,18 @@ module.exports.profilePhoto = function(req, res, next) {
           throw e;
         filesSavedCount++;
         if (filesSavedCount === filesSentCount)
-          res.status(200).json({ photos: req.user.photos });
+          res.status(200).json({ user: req.user });
       });
-      console.log('request ', req);
+    });
+  })
+  form.on('field', function(name, value) {
+    if (/(looking_for_)(.{1,})/.test(name)) {
+      req.user.looking_for[name.replace('looking_for_', '')] = value;
+    } else {
+      req.user[name] = value;
+    }
+    req.user.save(e => {
+      if (e) throw e;
     });
   })
   .on('error', function(err) {
@@ -40,6 +49,9 @@ module.exports.profilePhoto = function(req, res, next) {
   })
   .on('file', function () {
     filesSentCount++;
+  })
+  form.on('end', function() {
+    res.status(200).json({ user: req.user });
   });
   form.parse(req);
   return;

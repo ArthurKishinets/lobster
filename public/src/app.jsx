@@ -27,7 +27,6 @@ function renderApp() {
       <Provider store={store}>
         <div>
           <Interceptor></Interceptor>
-          
           <Header></Header>
           <Switch>
             <Route exact path="/" component={MainContainer}/>
