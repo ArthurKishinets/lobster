@@ -18,35 +18,45 @@ module.exports.profilePhoto = function(req, res, next) {
   form.multiples = true;
   let filesSentCount = 0;
   let filesSavedCount = 0;
-  form.on('file', (field, file) => {
-    cloudinary.uploader.upload(file.path, function(result) {
-      if (result.error) {
-        return;
-      }
-      req.user.photos.push(result.url);
-      req.user.save((e) => {
-        if (e)
-          throw e;
+  let filesAmount = 0;
+  let uploaded = 0;
+  form
+    .on('fileBegin', () => {
+      filesAmount++;
+    })
+    .on('file', (field, file) => {
+      cloudinary.uploader.upload(file.path, function(result) {
+        if (result.error) {
+          return;
+        }
+        req.user.photos.push(result.url);
+        req.user.save((e) => {
+          if (e)
+            throw e;
+          uploaded++;
+          if (filesAmount && filesAmount === uploaded)
+            res.status(200).json({result: req.user, status: 'user updated'});
+        });
       });
-    });
-  })
-  form.on('field', function(name, value) {
-    if (/(looking_for_)(.{1,})/.test(name)) {
-      req.user.looking_for[name.replace('looking_for_', '')] = value;
-    } else {
-      req.user[name] = value;
-    }
-    req.user.save(e => {
-      if (e) throw e;
-    });
-  })
-  .on('error', function(err) {
-    console.error(err);
-    process.exit(1);
-  })
-  form.on('end', function() {
-    res.status(200).json({ user: req.user });
-  });
-  form.parse(req);
+    })
+    .on('field', function(name, value) {
+      if (/(looking_for_)(.{1,})/.test(name)) {
+        req.user.looking_for[name.replace('looking_for_', '')] = value;
+      } else {
+        req.user[name] = value;
+      }
+      req.user.save(e => {
+        if (e) throw e;
+      });
+    })
+    .on('error', function(err) {
+      console.error(err);
+      process.exit(1);
+    })
+    .on('end', function() {
+      if (!filesAmount)
+        res.status(200).json({result: req.user, status: 'user updated'});
+    })
+    .parse(req);
   return;
 };

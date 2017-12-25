@@ -15,7 +15,6 @@ class Profile extends React.Component {
     e.preventDefault();
     let formData = new FormData();
     for (let key in this.props.profile) {
-      console.log(' fields to append ', `${key}`, this.props.profile[key]);
       if (typeof this.props.profile[key] === 'object') {
         for (let innerKey in this.props.profile[key]) {
           formData.append(`${key}_${innerKey}`, this.props.profile[key][innerKey]);
@@ -34,13 +33,14 @@ class Profile extends React.Component {
     .then(r => r.json())
     .then(r => {
       console.log('r ', r);
-      return r;
-    })
-    .then(r => {
-      this.props.updateUser({ photos: r.photos });
+      this.props.updateUser(r.result);
       for (var key of formData.keys()) {
         formData.delete(key);
       };
+      this.props.updateProfile({
+        gallery: undefined,
+        filesToSend: [],
+      });
     })
     .catch(e => console.error(e));
   }
@@ -57,7 +57,7 @@ class Profile extends React.Component {
       let reader = new FileReader();
       reader.onload = (file) => {
         gallery.push(
-          <div key={f.lastModified}>
+          <div key={`${f.lastModified}${f.name}${f.size}`}>
             <span>{f.name}</span>
             <span>{f.size}</span>
             <img width="100px" height="100px" src={file.currentTarget.result} alt="photo"/>
@@ -106,12 +106,12 @@ class Profile extends React.Component {
     
           I'm looking for: <br></br>
           <input type="radio" name="looking_for_gender" id="lookingGenderMale"
-            onChange={this.formChanged}
-            value='male'/>
+            checked={(this.props.profile.looking_for || {}).gender === 'male'}
+            value='male' onChange={this.formChanged}/>
           <label htmlFor="lookingGenderMale">looking Gende Male</label><br></br>
           <input type="radio" name="looking_for_gender" id="lookingGenderFemale"
-            onChange={this.formChanged}
-            value='female'/>
+            checked={(this.props.profile.looking_for || {}).gender === 'female'}
+            value='female' onChange={this.formChanged}/>
           <label htmlFor="lookingGenderFemale">looking Gender Female</label><br></br>
           <label htmlFor="lookingAge">looking for ages</label><br></br>
           <input name="looking_for_age" id="lookingAge" type="range" onChange={this.formChanged}

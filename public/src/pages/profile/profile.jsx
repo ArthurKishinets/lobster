@@ -11,6 +11,7 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = (dispatch, props) => ({
   updateUser: (user) => {
     dispatch(updateUser(user));
+    dispatch(updateProfile(user));
   },
   updateProfile: (data) => {
     dispatch(updateProfile(data));
