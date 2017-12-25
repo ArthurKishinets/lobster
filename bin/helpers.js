@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 function checkAuthentication(req, res, next){
     if(req.isAuthenticated()){
         next();

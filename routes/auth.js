@@ -23,7 +23,7 @@ module.exports.signIn = function (req, res, next) {
 module.exports.signUp = function(req, res, next) {
   if (!req.body.nickname || !req.body.email || !req.body.password)
     return res.send({status: 'Not enough information'});
-  User.find({ $or: [{ email: req.body.email}, {nickname : req.body.nickname}] }, (err, existingUser) => {
+  User.find({ $or: [{email: req.body.email}, {nickname : req.body.nickname}]}, (err, existingUser) => {
     if (err) return next(err);
     if (existingUser.length) {
       req.body.nickname === existingUser[0].nickname ? 
@@ -41,7 +41,7 @@ module.exports.signUp = function(req, res, next) {
       if (err) return next(err);
       req.login(user, (err) => {
         if (err) return next(err);
-        return res.send({ status: 'user successfully signed up' });
+        return res.send({status: 'user successfully signed up', result: user});
       });
     });
   });

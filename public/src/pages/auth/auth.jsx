@@ -1,6 +1,6 @@
-import Login from './login/login.jsx';
-import Signup from './signup/signup.jsx';
-import Socials from './social/social.jsx';
+import Login from './login/login';
+import SignUp from './signup/signup';
+import Socials from './social/social';
 import React from 'react';
 
 let Auth = () => {
@@ -8,7 +8,7 @@ let Auth = () => {
     <div>
       <h1>Auth</h1>
       <Login></Login>
-      <Signup></Signup>
+      <SignUp></SignUp>
       <Socials></Socials>
     </div>
   );

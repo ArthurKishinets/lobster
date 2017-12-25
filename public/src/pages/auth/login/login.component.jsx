@@ -38,6 +38,7 @@ class Login extends React.Component {
     res = await res.json();
     if(!_.isEmpty(res.result)) {
       this.props.updateUser(res.result);
+      this.props.updateProfile(res.result);
     }
   }
 
