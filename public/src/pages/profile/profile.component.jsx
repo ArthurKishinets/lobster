@@ -6,10 +6,6 @@ import './profile.scss';
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      files: [],
-      filesToSend: [],
-    };
     this.filesChanged = this.filesChanged.bind(this);
     this.saveUser = this.saveUser.bind(this);
     this.formChanged = this.formChanged.bind(this);
@@ -17,15 +13,7 @@ class Profile extends React.Component {
 
   saveUser(e) {
     e.preventDefault();
-/*     if (!this.state.files.length) {
-      console.log('no files');
-      return;
-    } */
     let formData = new FormData();
-    for (let file in this.state.filesToSend) {
-      console.log(' files to append ', this.state.filesToSend[file].name, this.state.filesToSend[file]);
-      formData.append(`${this.state.filesToSend[file].name}`, this.state.filesToSend[file]);
-    }
     for (let key in this.props.profile) {
       console.log(' fields to append ', `${key}`, this.props.profile[key]);
       if (typeof this.props.profile[key] === 'object') {
@@ -53,9 +41,6 @@ class Profile extends React.Component {
       for (var key of formData.keys()) {
         formData.delete(key);
       };
-      this.setState({
-        files: [],
-      });
     })
     .catch(e => console.error(e));
   }
@@ -63,15 +48,15 @@ class Profile extends React.Component {
   filesChanged(e) {
     e.persist();
     console.log('files changed', e.target.files);
-    let copideFiles = Object.assign({}, e.target.files);
-    this.setState((prevState) => ({
-      filesToSend: copideFiles,
-    }));
-    let filesInfo = [];
+    let filesToSend = Object.assign({}, e.target.files);
+    this.props.updateProfile({
+      filesToSend,
+    });
+    let gallery = [];
     [].slice.call(e.target.files).map(f => {
       let reader = new FileReader();
       reader.onload = (file) => {
-        filesInfo.push(
+        gallery.push(
           <div key={f.lastModified}>
             <span>{f.name}</span>
             <span>{f.size}</span>
@@ -79,8 +64,8 @@ class Profile extends React.Component {
             <p>bytes</p>
           </div>
         );
-        this.setState({
-          files: filesInfo,
+        this.props.updateProfile({
+          gallery,
         });
         e.target.value = null;
       };
@@ -140,7 +125,7 @@ class Profile extends React.Component {
         </form>
 
         <p>Gallery</p>
-        <div>{this.state.files}</div>
+        <div>{this.props.profile.gallery}</div>
         <div>{this.props.user.photos && this.props.user.photos.map(photo => {
           return <img key={photo} src={photo} alt="photo"/>;
         })}</div>

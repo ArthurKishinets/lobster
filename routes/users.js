@@ -27,9 +27,6 @@ module.exports.profilePhoto = function(req, res, next) {
       req.user.save((e) => {
         if (e)
           throw e;
-        filesSavedCount++;
-        if (filesSavedCount === filesSentCount)
-          res.status(200).json({ user: req.user });
       });
     });
   })
@@ -46,9 +43,6 @@ module.exports.profilePhoto = function(req, res, next) {
   .on('error', function(err) {
     console.error(err);
     process.exit(1);
-  })
-  .on('file', function () {
-    filesSentCount++;
   })
   form.on('end', function() {
     res.status(200).json({ user: req.user });
