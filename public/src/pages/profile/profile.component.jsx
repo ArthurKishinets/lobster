@@ -1,5 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router'
+import { Redirect } from 'react-router';
+import Button from 'material-ui/Button';
 
 import './profile.scss';
 
@@ -121,7 +122,9 @@ class Profile extends React.Component {
             profile photo:
           <input type="file" name="name" onChange={this.filesChanged} multiple />
           </label>
-          <input type="submit" value="Submit" />
+          <Button onClick={this.saveUser} raised color="primary">
+            Submit
+          </Button>
         </form>
 
         <p>Gallery</p>
