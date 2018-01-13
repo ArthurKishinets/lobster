@@ -26,5 +26,6 @@ router.post('/api/self', checkAuthentication, users.profilePhoto);
 router.get('/api/users/all', checkAuthentication, users.allUsers);
 router.post('/api/signin', authRoute.signIn);
 router.post('/api/signup', authRoute.signUp);
+router.post('/api/logout', authRoute.logout);
 
 module.exports = router;

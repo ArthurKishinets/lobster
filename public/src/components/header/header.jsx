@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import { userActions, updateUser } from '../../redux/actions';
+import { userActions, updateUser, updateProfile, deleteUser } from '../../redux/actions';
 import HeaderComponent from './header.component';
 
 const mapStateToProps = (state, props) => ({
@@ -11,7 +11,9 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = (dispatch, props) => ({
   updateUser: (user) => {
     dispatch(updateUser(user));
+    dispatch(updateProfile(user));
   },
+  deleteUser: () => dispatch(deleteUser()),
 });
 
 const Header = connect(

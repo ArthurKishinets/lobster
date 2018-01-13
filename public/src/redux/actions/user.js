@@ -3,8 +3,11 @@ const updateUser = (user) => ({
   user,
 });
 
+const deleteUser = () => ({ type: 'DELETE_USER' });
+
 const userActions = {
   updateUser,
+  deleteUser,
 };
 
 export default userActions;

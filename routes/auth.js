@@ -46,3 +46,8 @@ module.exports.signUp = function(req, res, next) {
     });
   });
 };
+
+module.exports.logout = function(req, res, next) {
+  req.logout();
+  return res.send({status: 'user successfully logged out', result: req.user});
+};

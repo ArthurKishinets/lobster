@@ -90,7 +90,7 @@ class Profile extends React.Component {
   }
 
   render() {
-    if (!this.props.profile.city) return <div></div>;
+    if (!this.props.main.userReceived) return <div></div>;
     if (_.isEmpty(this.props.user) && this.props.main.userReceived) return <Redirect to='/auth'></Redirect>;
     return (
       <div>

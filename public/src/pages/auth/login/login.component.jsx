@@ -1,32 +1,21 @@
 import React from 'react';
 import { Redirect } from 'react-router'
 import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
 
 import './login.scss';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
-    //this.signup();
-  }
-
-  handleChange(name, e) {
-    this.setState({
-      [name]: e.target.value
-    });
   }
 
   async login(e, data) {
     e.preventDefault();
     const body = {
-      email: e.target.email.value,
-      password: e.target.password.value
+      email: document.forms['login'].email.value,
+      password: document.forms['login'].password.value,
     };
     let res = await fetch('/api/signin', {
       method: 'POST',
@@ -50,7 +39,7 @@ class Login extends React.Component {
     return (
       <div className="login-form">
         <h1>Login form here</h1>
-        <form onSubmit={this.login} autoComplete="off">
+        <form name="login" autoComplete="off">
         <input style={{display:'none'}}/>
         <input type="password" style={{display:'none'}}/>
 
@@ -60,8 +49,6 @@ class Login extends React.Component {
             label="Email"
             type="text"
             margin="normal"
-            onChange={this.handleChange.bind(this, 'email')}
-            value={this.state.email}
           />
 
           <TextField
@@ -70,11 +57,11 @@ class Login extends React.Component {
             label="Password"
             type="password"
             margin="normal"
-            onChange={this.handleChange.bind(this, 'password')}
-            value={this.state.password}
           />
-          
-          <button>Login</button>
+
+          <Button onClick={this.login} raised color="primary">
+            Login
+          </Button>
         </form>
       </div>
     )
