@@ -1,3 +1,14 @@
 body {
   color: black;
 }
+.login-form {
+  input {
+    display: block;
+  }
+  .text-field {
+    display: block;
+  }
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px white inset;
+}

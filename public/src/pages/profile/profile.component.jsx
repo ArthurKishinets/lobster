@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import Button from 'material-ui/Button';
+import TextField from 'material-ui/TextField';
 
 import './profile.scss';
 
@@ -89,22 +90,43 @@ class Profile extends React.Component {
   }
 
   render() {
+    if (!this.props.profile.city) return <div></div>;
     if (_.isEmpty(this.props.user) && this.props.main.userReceived) return <Redirect to='/auth'></Redirect>;
     return (
       <div>
         <h1>{this.props.user.nickname}</h1>
         <form onSubmit={this.saveUser}>
-          <textarea name="about_me" id="aboutme" cols="30"
-            rows="10" defaultValue="Tell about youself" value={this.props.profile.about_me}
-            onChange={this.formChanged}></textarea><br></br>
 
-          <label htmlFor="currentCity">My current city</label><br></br>
-          <input type="text" name="city" id="currentCity" onChange={this.formChanged}
-            value={this.props.profile.city}/><br></br>
+          <TextField
+            name="about_me"
+            className="ui-input profile-aboutme"
+            id="textarea"
+            label="With placeholder multiline"
+            placeholder="Placeholder"
+            multiline
+            rows="4"
+            value={this.props.profile.about_me}
+            onChange={this.formChanged}
+            margin="normal"
+          />
+
+          <TextField
+            className="ui-input profile-aboutme"
+            name="city"
+            id="currentCity"
+            label="current City"
+            type="text"
+            autoComplete="current-password"
+            margin="normal"
+            defaultValue={this.props.profile.city}
+            value={this.props.profile.city}
+            onChange={this.formChanged}
+          />
+
           <label htmlFor="currentCity">My age</label><br></br>
           <input type="number" name="age" id="age" onChange={this.formChanged}
             value={this.props.profile.age}/><br></br>
-    
+ 
           I'm looking for: <br></br>
           <input type="radio" name="looking_for_gender" id="lookingGenderMale"
             checked={(this.props.profile.looking_for || {}).gender === 'male'}
@@ -118,9 +140,13 @@ class Profile extends React.Component {
           <input name="looking_for_age" id="lookingAge" type="range" onChange={this.formChanged}
             value={(this.props.profile.looking_for || {}).age}/><br></br>
 
-          <label>
+
+          <input style={{display: 'none'}} type="file" name="name" onChange={this.filesChanged} id="raised-button-file" multiple />
+          <label htmlFor="raised-button-file">
+          <Button raised component="span"> 
             profile photo:
-          <input type="file" name="name" onChange={this.filesChanged} multiple />
+          </Button>
+
           </label>
           <Button onClick={this.saveUser} raised color="primary">
             Submit

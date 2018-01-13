@@ -4,6 +4,21 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux'
 import reducer from './redux'
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import purple from 'material-ui/colors/purple';
+import green from 'material-ui/colors/green';
+import red from 'material-ui/colors/red';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: purple,
+    secondary: {
+      ...green,
+      A400: '#00e677',
+    },
+    error: red,
+  },
+});
 
 /**
  * Components
@@ -26,13 +41,17 @@ function renderApp() {
     <Router>
       <Provider store={store}>
         <div>
-          <Interceptor></Interceptor>
-          <Header></Header>
-          <Switch>
-            <Route exact path="/" component={MainContainer}/>
-            <Route path="/auth" component={Auth}/>
-            <Route path="/profile" component={ProfileContainer}/>
-          </Switch>
+          <MuiThemeProvider theme={theme}>
+            <div>
+              <Interceptor></Interceptor>
+              <Header></Header>
+              <Switch>
+                <Route exact path="/" component={MainContainer}/>
+                <Route path="/auth" component={Auth}/>
+                <Route path="/profile" component={ProfileContainer}/>
+              </Switch>
+            </div>
+          </MuiThemeProvider>
         </div>
       </Provider>
     </Router>,

@@ -4,6 +4,7 @@
   ],
   "plugins": [
     "transform-regenerator",
-    "syntax-async-functions"
+    "syntax-async-functions",
+    "transform-object-rest-spread"
   ]
 }

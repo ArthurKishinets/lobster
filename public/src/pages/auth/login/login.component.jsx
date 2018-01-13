@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router'
+import TextField from 'material-ui/TextField';
 
 import './login.scss';
 
@@ -47,19 +48,32 @@ class Login extends React.Component {
       return (<Redirect to='/profile'></Redirect>);
 
     return (
-      <div>
+      <div className="login-form">
         <h1>Login form here</h1>
-        <form onSubmit={this.login}>
-          <input type="text" name="email"
+        <form onSubmit={this.login} autoComplete="off">
+        <input style={{display:'none'}}/>
+        <input type="password" style={{display:'none'}}/>
+
+          <TextField
+            className="text-field"
+            name="email"
+            label="Email"
+            type="text"
+            margin="normal"
             onChange={this.handleChange.bind(this, 'email')}
             value={this.state.email}
           />
-          <br></br><br></br>
-          <input type="password" name="password"
+
+          <TextField
+            className="text-field"
+            name="password"
+            label="Password"
+            type="password"
+            margin="normal"
             onChange={this.handleChange.bind(this, 'password')}
             value={this.state.password}
           />
-          <br></br><br></br>
+          
           <button>Login</button>
         </form>
       </div>
