@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from 'material-ui/Button';
 
 import './header.scss';
 
@@ -36,7 +37,9 @@ class HeaderComponent extends React.Component {
           <li><Link to="/">main</Link></li>
         </ul>
 
-        <button className="logout" onClick={this.logout}>log out</button>
+        <Button className="logout" onClick={this.logout} raised color="primary">
+          Logout
+        </Button>
       </header>
     );
   }

@@ -2,6 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
+import Radio, { RadioGroup } from 'material-ui/Radio';
+import { FormLabel, FormControl, FormControlLabel } from 'material-ui/Form';
 
 import './profile.scss';
 
@@ -95,14 +97,13 @@ class Profile extends React.Component {
     return (
       <div>
         <h1>{this.props.user.nickname}</h1>
-        <form onSubmit={this.saveUser}>
+        <form onSubmit={this.saveUser} className="profile-form">
 
           <TextField
             name="about_me"
             className="ui-input profile-aboutme"
             id="textarea"
-            label="With placeholder multiline"
-            placeholder="Placeholder"
+            label="Tell about youself"
             multiline
             rows="4"
             value={this.props.profile.about_me}
@@ -123,23 +124,33 @@ class Profile extends React.Component {
             onChange={this.formChanged}
           />
 
-          <label htmlFor="currentCity">My age</label><br></br>
-          <input type="number" name="age" id="age" onChange={this.formChanged}
-            value={this.props.profile.age}/><br></br>
- 
-          I'm looking for: <br></br>
-          <input type="radio" name="looking_for_gender" id="lookingGenderMale"
-            checked={(this.props.profile.looking_for || {}).gender === 'male'}
-            value='male' onChange={this.formChanged}/>
-          <label htmlFor="lookingGenderMale">looking Gende Male</label><br></br>
-          <input type="radio" name="looking_for_gender" id="lookingGenderFemale"
-            checked={(this.props.profile.looking_for || {}).gender === 'female'}
-            value='female' onChange={this.formChanged}/>
-          <label htmlFor="lookingGenderFemale">looking Gender Female</label><br></br>
+          <TextField
+            className="ui-input profile-aboutme"
+            name="age"
+            id="age"
+            label="my age"
+            type="number"
+            autoComplete="current-password"
+            margin="normal"
+            value={this.props.profile.age}
+            onChange={this.formChanged}
+          />
+
+          <FormControl component="fieldset" required>
+            <FormLabel component="legend">I'm looking for:</FormLabel>
+            <RadioGroup
+              name="looking_for_gender"
+              value={this.props.profile.looking_for.gender}
+              onChange={this.formChanged}
+            >
+              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <FormControlLabel value="female" control={<Radio />} label="Female" />
+            </RadioGroup>
+          </FormControl><br></br>
+
           <label htmlFor="lookingAge">looking for ages</label><br></br>
           <input name="looking_for_age" id="lookingAge" type="range" onChange={this.formChanged}
             value={(this.props.profile.looking_for || {}).age}/><br></br>
-
 
           <input style={{display: 'none'}} type="file" name="name" onChange={this.filesChanged} id="raised-button-file" multiple />
           <label htmlFor="raised-button-file">

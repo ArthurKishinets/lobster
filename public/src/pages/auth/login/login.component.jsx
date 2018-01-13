@@ -44,6 +44,7 @@ class Login extends React.Component {
         <input type="password" style={{display:'none'}}/>
 
           <TextField
+            autoFocus
             className="text-field"
             name="email"
             label="Email"
