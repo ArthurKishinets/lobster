@@ -28,7 +28,7 @@ class SignUpComponent extends React.Component {
     });
     res = await res.json();
     this.props.updateUser(res.result);
-    this.props.updateMain({ loggedOut : false });
+    this.props.updateMain({ loggedOut : false, userReceived: true });
   }
 
   render() {
