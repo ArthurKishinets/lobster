@@ -12,21 +12,18 @@ class InterceptorComponent extends React.Component {
   componentWillMount() {
     this.getSelf().then(r => {
       localStorage.user = r;
-      this.props.updateUser(r.result);
       this.props.updateProfile(r.result);
+      this.props.updateUser(r.result);
       this.props.updateMain({ userReceived: true });
     }).catch(e => console.info(e));
   }
-  
-/*   componentWillReceiveProps(nextProps) {
-  } */
 
   getSelf() {
     return fetch('/api/self', { credentials: 'include' }).then(r => r.json());
   }
 
   render() {
-    return (<div>{this.props.children}</div>);
+    return <div>{this.props.children}</div>;
   }
 }
 

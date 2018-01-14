@@ -1,5 +1,4 @@
 const passport = require('passport');
-const router = require('express').Router();
 const User = require('mongoose').model('user');
 const util = require('util');
 const debug = require('debug')('req');

@@ -31,7 +31,7 @@ import ProfileContainer from './pages/profile/profile.jsx';
 import Auth from './pages/auth/auth.jsx';
 import MainContainer from './pages/main/main.jsx';
 import Interceptor from './pages/routing/interceptor/interceptor.jsx';
-import initialStore from './redux/initial.store.js';
+import { initialStore } from './redux/initial.store.js';
 
 const store = createStore(reducer, initialStore,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

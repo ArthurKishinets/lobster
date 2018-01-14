@@ -9,6 +9,8 @@ const profile = (state = {}, action) => {
           return null;
         }
       });
+    case 'DELETE_USER':
+      return {};
     default:
       return state;
   }

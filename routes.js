@@ -6,6 +6,7 @@ const { checkAuthentication } = require('./bin/helpers');
 const authRoute = require('./routes/auth');
 const index = require('./routes/index');
 const users = require('./routes/users');
+const game = require('./routes/game');
 
 router.get('/api/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
 router.get('/api/auth/facebook/callback', passport.authenticate('facebook',
@@ -26,6 +27,7 @@ router.post('/api/self', checkAuthentication, users.profilePhoto);
 router.get('/api/users/all', checkAuthentication, users.allUsers);
 router.post('/api/signin', authRoute.signIn);
 router.post('/api/signup', authRoute.signUp);
-router.post('/api/logout', authRoute.logout);
+router.post('/api/logout', checkAuthentication, authRoute.logout);
+router.get('/api/getPartners', checkAuthentication, game.getPartners);
 
 module.exports = router;

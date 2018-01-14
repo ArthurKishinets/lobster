@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
-import { updateUser, updateProfile } from '../../../redux/actions';
+import { updateUser, updateProfile, updateMain } from '../../../redux/actions';
 import Login from './login.component';
 
 const mapStateToProps = (state, props) => ({
   user: state.user,
+  main: state.main,
+  profile: state.profile,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -12,6 +14,9 @@ const mapDispatchToProps = (dispatch, props) => ({
   },
   updateProfile: (data) => {
     dispatch(updateProfile(data));
+  },
+  updateMain: (data) => {
+    dispatch(updateMain(data));
   },
 });
 

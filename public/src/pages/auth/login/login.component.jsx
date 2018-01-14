@@ -29,12 +29,13 @@ class Login extends React.Component {
     if(!_.isEmpty(res.result)) {
       this.props.updateUser(res.result);
       this.props.updateProfile(res.result);
+      this.props.updateMain({ loggedOut : false });
     }
   }
 
   render() {
-    if (!_.isEmpty(this.props.user))
-      return (<Redirect to='/profile'></Redirect>);
+    if (this.props.main.userReceived && !_.isEmpty(this.props.profile))
+      return <Redirect to='/profile'></Redirect>;
 
     return (
       <div className="login-form">

@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import { Redirect } from 'react-router';
 
 import './signup.scss';
 
@@ -20,16 +21,19 @@ class SignUpComponent extends React.Component {
     let res = await fetch('/api/signup', {
       method: 'POST',
       credentials: 'include',
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json'
       }
     });
     res = await res.json();
-    this.props.updateUser(res.result);;
+    this.props.updateUser(res.result);
+    this.props.updateMain({ loggedOut : false });
   }
 
   render() {
+    if (this.props.main.userReceived && !_.isEmpty(this.props.user))
+      return <Redirect to='/'></Redirect>;
     return (
       <div className="signup">
         <h1>Signup form here</h1>
@@ -60,7 +64,7 @@ class SignUpComponent extends React.Component {
           />
 
           <Button onClick={this.signUp} raised color="primary">
-          Signup
+            Signup
           </Button>
         </form>
       </div>

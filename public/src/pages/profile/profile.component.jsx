@@ -92,8 +92,10 @@ class Profile extends React.Component {
   }
 
   render() {
+    if (this.props.main.loggedOut) return <Redirect to='/auth'></Redirect>;
     if (!this.props.main.userReceived) return <div></div>;
-    if (_.isEmpty(this.props.user) && this.props.main.userReceived) return <Redirect to='/auth'></Redirect>;
+    if (_.isEmpty(this.props.user) && this.props.main.userReceived)
+      return <Redirect to='/auth'></Redirect>;
     return (
       <div>
         <h1>{this.props.user.nickname}</h1>
@@ -137,10 +139,22 @@ class Profile extends React.Component {
           />
 
           <FormControl component="fieldset" required>
+            <FormLabel component="legend">My gender</FormLabel>
+            <RadioGroup
+              name="gender"
+              value={this.props.profile.gender}
+              onChange={this.formChanged}
+            >
+              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <FormControlLabel value="female" control={<Radio />} label="Female" />
+            </RadioGroup>
+          </FormControl><br></br>
+
+          <FormControl component="fieldset" required>
             <FormLabel component="legend">I'm looking for:</FormLabel>
             <RadioGroup
               name="looking_for_gender"
-              value={this.props.profile.looking_for.gender}
+              value={(this.props.profile.looking_for || {}).gender}
               onChange={this.formChanged}
             >
               <FormControlLabel value="male" control={<Radio />} label="Male" />

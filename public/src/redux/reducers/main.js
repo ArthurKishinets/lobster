@@ -1,10 +1,11 @@
-import _ from 'lodash';
+import { initialStore } from '../initial.store';
 
 const updateMain = (state = {}, action) => {
-  //if (_.isEmpty(action.data)) return state;
   switch (action.type) {
     case 'UPDATE_MAIN':
       return _.merge({}, state, action.data);
+    case 'DELETE_USER':
+      return _.merge({}, initialStore.main, { loggedOut: true });
     default:
       return state;
   }
