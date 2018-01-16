@@ -10,13 +10,11 @@ const defaultEnv = {
 
 export default (env = defaultEnv) => {
   console.log('env.dev', env);
-
   return {
     entry: {
-      "one": path.join(__dirname, '/public/src/app.jsx'),
-      "two": path.join(__dirname, '/public/src/vendor.jsx'),
+      "one": path.join(__dirname, '/public/src/vendor.jsx'),
+      "two": path.join(__dirname, '/public/src/app.jsx'),
     },
-
     output: {
       filename: '[name].js',
       path: path.join(__dirname, './public/dist'),
@@ -24,7 +22,6 @@ export default (env = defaultEnv) => {
       libraryTarget: "var",
       library: "lobster",
     },
-
     module: {
       rules: [
         {
@@ -50,10 +47,8 @@ export default (env = defaultEnv) => {
             use: ['css', 'sass']
           })
         },
-
       ],
     },
-
     watch: env.dev,
     devtool: env.dev ? 'inline-source-map' : false,
     plugins: [
@@ -62,13 +57,14 @@ export default (env = defaultEnv) => {
         new HotModuleReplacementPlugin({
         multiStep: false
       }),
-
       ] : [
         new ExtractTextPlugin('[name].css'),
       ],
       new HtmlWebpackPlugin({
         filename: 'index.html',
         template: path.join(__dirname, './public/src/index.html'),
+        chunks: ['one', 'two'],
+        chunksSortMode: 'manual',
       }),
     ],
     resolveLoader: {

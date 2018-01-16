@@ -23,7 +23,6 @@ class HeaderComponent extends React.Component {
     } catch (e) {
       console.error('e', e);
     }
-
     this.props.deleteUser();
   }
 

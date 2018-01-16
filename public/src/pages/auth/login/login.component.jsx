@@ -29,7 +29,7 @@ class Login extends React.Component {
     if(!_.isEmpty(res.result)) {
       this.props.updateUser(res.result);
       this.props.updateProfile(res.result);
-      this.props.updateMain({ loggedOut : false });
+      this.props.updateMain({ loggedOut : false, userReceived: true });
     }
   }
 

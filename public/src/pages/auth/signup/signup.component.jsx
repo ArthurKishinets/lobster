@@ -33,7 +33,7 @@ class SignUpComponent extends React.Component {
 
   render() {
     if (this.props.main.userReceived && !_.isEmpty(this.props.user))
-      return <Redirect to='/'></Redirect>;
+      return <Redirect to='/profile'></Redirect>;
     return (
       <div className="signup">
         <h1>Signup form here</h1>
