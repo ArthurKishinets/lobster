@@ -15,16 +15,20 @@ module.exports.getPartners = function(req, res, next) {
 };
 
 module.exports.rejectPartner = function(req, res, next) {
+  console.log('req body', req.body);
+  debugger;
   if (!req.body.id) {
     return res.status(403).send({status: "error has occured"});
   }
   User.findOneAndUpdate({
     _id: req.user._id,
   }, {
-    $push: { rejections: id },
+    $push: { rejections: req.body.id },
+  }, {
+    new: true
   }, (err, doc) => {
     if (err) return next(err);
-    return res.status(403).send({
+    return res.status(200).send({
       status: "user successfully updated",
       user: doc,
     });
@@ -38,10 +42,12 @@ module.exports.approvePartner = function(req, res, next) {
   User.findOneAndUpdate({
     _id: req.user._id,
   }, {
-    $push: { approvals: id },
+    $push: { approvals: req.body.id },
+  }, { 
+    new: true
   }, (err, doc) => {
     if (err) return next(err);
-    return res.status(403).send({
+    return res.status(200).send({
       status: "user successfully updated",
       user: doc,
     });
