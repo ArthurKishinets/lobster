@@ -42,6 +42,8 @@ module.exports.profilePhoto = function(req, res, next) {
     .on('field', function(name, value) {
       if (/(looking_for_)(.{1,})/.test(name)) {
         req.user.looking_for[name.replace('looking_for_', '')] = value;
+      } else if (name === 'location') {
+        req.user.location = [value.split(':')[0], value.split(':')[1]];
       } else {
         req.user[name] = value;
       }

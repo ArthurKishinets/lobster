@@ -1,0 +1,10 @@
+{
+  "extends": ["standard", "standard-react"],
+  "globals": {
+    "fetch": true,
+    "_"
+  },
+  "rules": {
+    "semi": 0
+  }
+}
