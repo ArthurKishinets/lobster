@@ -27,8 +27,9 @@ router.get('/api/auth/google/callback', passport.authenticate('google',
 /* user */
 router.get('/api/', index.main);
 router.get('/api/self', index.self);
-router.post('/api/self', checkAuthentication, users.profilePhoto);
 router.get('/api/users/all', checkAuthentication, users.allUsers);
+router.post('/api/self', checkAuthentication, users.updateUser);
+router.post('/api/self/photos', checkAuthentication, users.profilePhotos);
 /* auth */
 router.post('/api/signin', authRoute.signIn);
 router.post('/api/signup', authRoute.signUp);

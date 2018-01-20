@@ -1,18 +1,20 @@
-const express = require('express');
-const router = express.Router();
-const { checkAuthentication } = require('../bin/helpers');
+// const express = require('express');
+// const router = express.Router();
+// const { checkAuthentication } = require('../bin/helpers');
 const formidable = require('formidable');
-const util = require('util');
+// const util = require('util');
 const cloudinary = require('cloudinary');
-const constants = require('../bin/const');
+// const constants = require('../bin/const');
 const mongoose = require('mongoose');
-const UserSchema = mongoose.model('user');
+// const UserSchema = mongoose.model('user');
+const _ = require('lodash');
 
 module.exports.allUsers = function(req, res, next) {
   res.send('respond with a resource');
 };
 
-module.exports.profilePhoto = function(req, res, next) {
+/* module.exports.profilePhotos = function(req, res, next) {
+  debugger;
   const form = new formidable.IncomingForm();
   form.maxFieldsSize = 1 * 1024 * 1024;
   form.multiples = true;
@@ -25,9 +27,10 @@ module.exports.profilePhoto = function(req, res, next) {
       filesAmount++;
     })
     .on('file', (field, file) => {
+      console.log('new file ', file);
       cloudinary.uploader.upload(file.path, function(result) {
         if (result.error) {
-          return;
+          return res.status(403).send({ status: 'Error has occured' });
         }
         req.user.photos.push(result.url);
         req.user.save((e) => {
@@ -60,5 +63,35 @@ module.exports.profilePhoto = function(req, res, next) {
         res.status(200).json({result: req.user, status: 'user updated'});
     })
     .parse(req);
-  return;
+}; */
+
+module.exports.profilePhotos = function (req, res, next) {
+  let uploaded = 0;
+  const photos = req.body.filter(p => (typeof p === 'string'));
+  photos.forEach(p => {
+    cloudinary.uploader.upload(p, function (result) {
+      if (result.error) {
+        return res.status(403).send({ status: 'Error has occured' });
+      }
+      req.user.photos.push(result.url);
+      req.user.save((e) => {
+        if (e)
+          throw e;
+        uploaded++;
+        if (photos.length === uploaded)
+          res.status(200).json({ result: req.user, status: 'user updated' });
+      });
+    });
+  });
+};
+
+module.exports.updateUser = function(req, res) {
+  _.merge(req.user, req.body);
+  req.user.save((e) => {
+    if (e) {
+      res.status(403).send({ status: 'Error has occured' });
+      throw e;
+    }
+    res.status(200).send({ status: 'User has been successfully updated', result: req.user });
+  });
 };

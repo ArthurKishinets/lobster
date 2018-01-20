@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=krovostok:server,req,mongoose node ./bin/www",
-    "nodemon": "DEBUG=krovostok:server,req,mongoose nodemon ./bin/www",
+    "start": "DEBUG=krovostok:server,req,mongoose node --experimental-modules ./bin/www",
+    "nodemon": "DEBUG=krovostok:server,req,mongoose nodemon --experimental-modules ./bin/www",
     "w": "webpack-dev-server --env.dev --config webpack.config.babel.js --colors",
     "wp": "rm -rf public/dist && webpack -p --env.production --config webpack.config.babel.js --colors"
   },

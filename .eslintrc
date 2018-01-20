@@ -2,9 +2,14 @@
   "extends": ["standard", "standard-react"],
   "globals": {
     "fetch": true,
-    "_"
+    "_": true,
+    "FormData": true,
+    "FileReader": true
   },
   "rules": {
-    "semi": 0
+    "semi": 0,
+    "space-before-function-paren": 0,
+    "curly": 0,
+    "react/prop-types": 0
   }
 }
