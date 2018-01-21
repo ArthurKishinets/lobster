@@ -19,8 +19,8 @@ import Header from './components/header/header.jsx'
 import ProfileContainer from './pages/profile/profile.jsx'
 import Auth from './pages/auth/auth.jsx'
 import MainContainer from './pages/main/main.jsx'
-import Interceptor from './pages/routing/interceptor/interceptor.jsx'
-import Location from './components/location/location.jsx'
+import Interceptor from './components/interceptor/interceptor.jsx'
+// import Location from './components/location/location.jsx'
 import { initialStore } from './redux/initial.store.js'
 
 const theme = createMuiTheme({
@@ -35,7 +35,7 @@ const theme = createMuiTheme({
 })
 
 const store = createStore(reducer, initialStore,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 function renderApp () {
   ReactDom.render(
@@ -45,7 +45,6 @@ function renderApp () {
           <MuiThemeProvider theme={theme}>
             <div>
               <Interceptor />
-              <Location />
               <Header />
               <Switch>
                 <Route exact path='/' component={MainContainer} />

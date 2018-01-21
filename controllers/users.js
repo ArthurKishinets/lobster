@@ -76,7 +76,7 @@ module.exports.profilePhotos = function (req, res, next) {
       req.user.photos.push(result.url);
       req.user.save((e) => {
         if (e)
-          throw e;
+          return next(e);
         uploaded++;
         if (photos.length === uploaded)
           res.status(200).json({ result: req.user, status: 'user updated' });
@@ -85,13 +85,11 @@ module.exports.profilePhotos = function (req, res, next) {
   });
 };
 
-module.exports.updateUser = function(req, res) {
+module.exports.updateUser = function(req, res, next) {
   _.merge(req.user, req.body);
   req.user.save((e) => {
-    if (e) {
-      res.status(403).send({ status: 'Error has occured' });
-      throw e;
-    }
+    if (e)
+      return next(e);
     res.status(200).send({ status: 'User has been successfully updated', result: req.user });
   });
 };

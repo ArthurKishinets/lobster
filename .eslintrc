@@ -5,7 +5,8 @@
     "_": true,
     "FormData": true,
     "FileReader": true,
-    "localStorage": true
+    "localStorage": true,
+    "JSON": true
   },
   "rules": {
     "semi": 0,

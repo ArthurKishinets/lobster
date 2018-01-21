@@ -7,23 +7,19 @@ import './main.scss'
 class Main extends React.Component {
   async componentWillMount () {
     let res = await fetch('/api/getPartners', {credentials: 'include'})
-    let partners = await res.json()
-    console.log('partners ', partners)
+    this.partners = await res.json()
   }
 
   render () {
-    if ((_.isEmpty(this.props.user) || this.props.user.user_group < 1) &&
-      this.props.main.userReceived) {
+    if ((_.isEmpty(this.props.user) && this.props.main.userReceived) || this.props.main.loggedOut) {
       return <Redirect to='/auth' />
     }
 
     return (
-
       <div>
         <h1>main</h1>
-        <Plate />
+        <Plate candidates='this.partners' />
       </div>
-
     )
   }
 }

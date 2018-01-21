@@ -1,17 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { updateUser, updateMain, updateProfile } from '../../../redux/actions/index';
+import { updateUser, updateMain, updateProfile } from '../../redux/actions/index';
+import Location from '../location/location';
 // import routes from '../route.rights';
 
 class InterceptorComponent extends React.Component {
-  componentWillMount() {
-    this.getSelf().then(r => {
-      localStorage.user = r;
-      this.props.updateProfile(r.result);
-      this.props.updateUser(r.result);
+  async componentWillMount() {
+    try {
+      let user = this.getSelf();
+      localStorage.user = user;
+      this.props.updateProfile(user.result);
+      this.props.updateUser(user.result);
       this.props.updateMain({ userReceived: true });
-    }).catch(e => console.info(e));
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   getSelf() {
@@ -19,11 +23,15 @@ class InterceptorComponent extends React.Component {
   }
 
   render() {
-    return <div>{this.props.children}</div>;
+    console.log('InterceptorComponent ', this.props.user, !_.isEmpty(this.props.user));
+    return <div>
+      {this.props.children}
+      {!_.isEmpty(this.props.user) && <Location />}
+    </div>;
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, props) => ({
   user: state.user
 })
 

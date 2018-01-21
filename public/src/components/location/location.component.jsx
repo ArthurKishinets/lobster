@@ -6,22 +6,29 @@ class LocationComponent extends React.Component {
     this.state = {
       locationSent: false
     };
+    this.locationSent = false;
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (_.isEmpty(nextProps.user) || nextProps.user.location.length || this.state.locationSent || !navigator.geolocation) {
+  componentDidMount () {
+    if (_.isEmpty(this.props.user) || (this.props.user.location && this.props.user.location.length) ||
+      this.state.locationSent || !navigator.geolocation) {
       return false;
     }
+    this.locationSent = true;
     navigator.geolocation.getCurrentPosition((position) => {
-      nextProps.user.location = `${position.coords.longitude}:${position.coords.latitude}`;
-      let formData = new FormData();
-      formData.append(`location`, nextProps.user.location);
-      this.locationSent = true;
       this.setState({ locationSent: true });
       fetch('/api/self', {
         method: 'POST',
         credentials: 'include',
-        body: formData
+        body: JSON.stringify({
+          location: [
+            position.coords.longitude,
+            position.coords.latitude
+          ]
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
     });
   }

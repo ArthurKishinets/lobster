@@ -12,18 +12,17 @@ class HeaderComponent extends React.Component {
 
   async logout() {
     try {
-      let res = await fetch('/api/logout', {
+      await fetch('/api/logout', {
         method: 'POST',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      res = await res.json();
+      this.props.deleteUser();
     } catch (e) {
       console.error('e', e);
     }
-    this.props.deleteUser();
   }
 
   render() {
@@ -32,17 +31,16 @@ class HeaderComponent extends React.Component {
     return (
       <header>
         <ul>
-          <li><Link to="/profile">profile</Link></li>
-          <li><Link to="/">main</Link></li>
+          <li><Link to='/profile'>profile</Link></li>
+          <li><Link to='/'>main</Link></li>
         </ul>
 
-        <Button className="logout" onClick={this.logout} raised color="primary">
+        <Button className='logout' onClick={this.logout} raised color='primary'>
           Logout
         </Button>
       </header>
     );
   }
-
 }
 
 export default HeaderComponent;
