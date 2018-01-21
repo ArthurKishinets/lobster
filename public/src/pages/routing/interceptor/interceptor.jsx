@@ -2,13 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { updateUser, updateMain, updateProfile } from '../../../redux/actions/index';
-import routes from '../route.rights';
+// import routes from '../route.rights';
 
 class InterceptorComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.getSelf().then(r => {
       localStorage.user = r;
@@ -28,7 +24,7 @@ class InterceptorComponent extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  user: state.user,
+  user: state.user
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -40,12 +36,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   updateProfile: (data) => {
     dispatch(updateProfile(data));
-  },
+  }
 })
 
 const Interceptor = withRouter(connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(InterceptorComponent));
 
 export default Interceptor;

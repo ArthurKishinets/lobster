@@ -15,45 +15,47 @@ class Profile extends React.Component {
     this.formChanged = this.formChanged.bind(this);
   }
 
-  saveUser() {
-    fetch('api/self', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(this.props.profile)
-    })
-      .then(r => r.json())
-      .then(r => {
-        this.props.updateUser(r.result);
+  async saveUser() {
+    try {
+      let res = await fetch('/api/self', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(this.props.profile)
       });
+      res = await res.json();
+      this.props.updateUser(res.result);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  savePhotos(photos) {
-    fetch('/api/self/photos', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(photos)
-    })
-      .then(r => r.json())
-      .then(r => {
-        this.props.updateUser(r.result);
-        this.props.updateProfile({
-          gallery: undefined,
-          filesToSend: []
-        });
-      })
-      .catch(e => console.error(e));
+  async savePhotos(photos) {
+    try {
+      let res = await fetch('/api/self/photos', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(photos)
+      });
+      res = await res.json();
+      this.props.updateUser(res.result);
+      this.props.updateProfile({
+        gallery: undefined,
+        filesToSend: []
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   photosChanged (e) {
     e.persist();
     const self = this;
-    //debugger;
     let filesToSend = [];
     let gallery = [];
     [].slice.call(e.target.files).map(f => {
@@ -63,16 +65,17 @@ class Profile extends React.Component {
           <div key={`${f.lastModified}${f.name}${f.size}`}>
             <span>{f.name}</span>
             <span>{f.size}</span>
-            <img width='100px' height='100px' src={file.currentTarget.result} alt='photo' />
+            <img width='100px'
+              height='100px'
+              src={file.currentTarget.result}
+              alt='photo' />
             <p>bytes</p>
           </div>
         );
-        
         this.props.updateProfile({
           gallery
         });
         filesToSend.push(file.currentTarget.result);
-        //debugger;
         if (e.target.files.length === filesToSend.length) {
           self.savePhotos(filesToSend);
           e.target.value = null;

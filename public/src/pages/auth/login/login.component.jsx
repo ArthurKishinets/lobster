@@ -15,7 +15,7 @@ class Login extends React.Component {
     e.preventDefault();
     const body = {
       email: document.forms['login'].email.value,
-      password: document.forms['login'].password.value,
+      password: document.forms['login'].password.value
     };
     let res = await fetch('/api/signin', {
       method: 'POST',
@@ -26,42 +26,42 @@ class Login extends React.Component {
       }
     });
     res = await res.json();
-    if(!_.isEmpty(res.result)) {
+    if (!_.isEmpty(res.result)) {
       this.props.updateUser(res.result);
       this.props.updateProfile(res.result);
-      this.props.updateMain({ loggedOut : false, userReceived: true });
+      this.props.updateMain({ loggedOut: false, userReceived: true });
     }
   }
 
   render() {
     if (this.props.main.userReceived && !_.isEmpty(this.props.profile))
-      return <Redirect to='/profile'></Redirect>;
+      return <Redirect to='/profile' />;
 
     return (
-      <div className="login-form">
+      <div className='login-form'>
         <h1>Login form here</h1>
-        <form name="login" autoComplete="off">
-        <input style={{display:'none'}}/>
-        <input type="password" style={{display:'none'}}/>
+        <form name='login' autoComplete='off'>
+          <input style={{display: 'none'}} />
+          <input type='password' style={{display: 'none'}} />
 
           <TextField
             autoFocus
-            className="text-field"
-            name="email"
-            label="Email"
-            type="text"
-            margin="normal"
+            className='text-field'
+            name='email'
+            label='Email'
+            type='text'
+            margin='normal'
           />
 
           <TextField
-            className="text-field"
-            name="password"
-            label="Password"
-            type="password"
-            margin="normal"
+            className='text-field'
+            name='password'
+            label='Password'
+            type='password'
+            margin='normal'
           />
 
-          <Button onClick={this.login} raised color="primary">
+          <Button onClick={this.login} raised color='primary'>
             Login
           </Button>
         </form>

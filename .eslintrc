@@ -4,7 +4,8 @@
     "fetch": true,
     "_": true,
     "FormData": true,
-    "FileReader": true
+    "FileReader": true,
+    "localStorage": true
   },
   "rules": {
     "semi": 0,

@@ -1,5 +1,5 @@
 import 'isomorphic-fetch';
-import "babel-polyfill";
+import 'babel-polyfill';
 
 const fetch = function(url, options) {
   return fetch(url, Object.assign({}, options, { credentials: 'include' }));

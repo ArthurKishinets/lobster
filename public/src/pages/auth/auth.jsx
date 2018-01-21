@@ -8,7 +8,7 @@ class Auth extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginFormVisible: true,
+      loginFormVisible: true
     };
     this.changeForm = this.changeForm.bind(this);
   }
@@ -20,16 +20,16 @@ class Auth extends React.Component {
   render() {
     return (
       <div>
-        {this.state.loginFormVisible ? <Login></Login> : <SignUp></SignUp>}
-        <Socials></Socials>
+        {this.state.loginFormVisible ? <Login /> : <SignUp />}
+        <Socials />
         <div>
           {this.state.loginFormVisible ? 'Don`t have an account yet?`' : 'Already have an account?'}
         </div>
-        <Button onClick={this.changeForm} raised color="primary">
+        <Button onClick={this.changeForm} raised color='primary'>
           {this.state.loginFormVisible ? 'Sign up' : 'Login'}
         </Button>
       </div>
-    );  
+    );
   }
 }
 
