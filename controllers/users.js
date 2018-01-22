@@ -86,10 +86,15 @@ module.exports.profilePhotos = function (req, res, next) {
 };
 
 module.exports.updateUser = function(req, res, next) {
+  const locationChanged = req.body.location.filter((c, i) => c[i] !== req.user.location[i]).length;
   _.merge(req.user, req.body);
+  if (locationChanged)
+    req.user.markModified('location');
   req.user.save((e) => {
-    if (e)
+    if (e) {
+      console.log(e);
       return next(e);
+    }
     res.status(200).send({ status: 'User has been successfully updated', result: req.user });
   });
 };

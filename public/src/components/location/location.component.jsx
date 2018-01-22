@@ -30,6 +30,10 @@ class LocationComponent extends React.Component {
           'Content-Type': 'application/json'
         }
       });
+      this.props.updateUser({location: [
+        position.coords.longitude,
+        position.coords.latitude
+      ]});
     });
   }
 

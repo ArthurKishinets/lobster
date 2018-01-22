@@ -5,6 +5,7 @@ export const updateUser = userActions.updateUser;
 export const deleteUser = userActions.deleteUser;
 export const updateMain = (data) => ({
   type: 'UPDATE_MAIN',
-  data,
+  data
 });
 export const updateProfile = updateProfileAction;
+export { updateGame } from './game';

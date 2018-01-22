@@ -1,6 +1,9 @@
 export const initialStore = {
   main: {
     userReceived: false,
-    loggedOut: false,
+    loggedOut: false
   },
+  game: {
+    partners: []
+  }
 };

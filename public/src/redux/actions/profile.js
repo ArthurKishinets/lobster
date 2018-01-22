@@ -3,4 +3,4 @@ const updateProfile = (data) => ({
   data,
 });
 
-export default updateProfile
+export default updateProfile;

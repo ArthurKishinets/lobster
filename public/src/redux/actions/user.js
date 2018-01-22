@@ -1,13 +1,13 @@
 const updateUser = (user) => ({
   type: 'UPDATE_USER',
-  user,
+  user
 });
 
 const deleteUser = () => ({ type: 'DELETE_USER' });
 
 const userActions = {
   updateUser,
-  deleteUser,
+  deleteUser
 };
 
 export default userActions;

@@ -8,7 +8,7 @@ import Location from '../location/location';
 class InterceptorComponent extends React.Component {
   async componentWillMount() {
     try {
-      let user = this.getSelf();
+      let user = await this.getSelf();
       localStorage.user = user;
       this.props.updateProfile(user.result);
       this.props.updateUser(user.result);

@@ -6,8 +6,16 @@ import './main.scss'
 
 class Main extends React.Component {
   async componentWillMount () {
-    let res = await fetch('/api/getPartners', {credentials: 'include'})
-    this.partners = await res.json()
+    try {
+      let res = await fetch('/api/getPartners', {
+        credentials: 'include'
+      });
+      res = await res.json();
+      this.partners = res.partners;
+      this.props.updateGame({ partners: this.partners });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   render () {
@@ -15,9 +23,12 @@ class Main extends React.Component {
       return <Redirect to='/auth' />
     }
 
+    if (!_.isEmpty(this.props.user) && this.props.main.userReceived && (!this.props.user.location || !this.props.user.location.length)) {
+      return <div className='main-allow-location'>To play the game you should allow application to get your location</div>;
+    }
+
     return (
       <div>
-        <h1>main</h1>
         <Plate candidates='this.partners' />
       </div>
     )

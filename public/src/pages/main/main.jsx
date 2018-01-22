@@ -1,21 +1,26 @@
 import { connect } from 'react-redux';
-//import { updateUser } from '../../../redux/actions';
+// import { updateUser } from '../../../redux/actions';
 import Main from './main.component';
+import { updateGame } from '../../redux/actions';
 
 const mapStateToProps = (state, props) => ({
   user: state.user,
   main: state.main,
+  game: state.game
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-  // updateUser: (user) => {
-  //   dispatch(updateUser(user));
-  // },
+/*   updateUser: (user) => {
+    dispatch(updateUser(user));
+  }, */
+  updateGame(data) {
+    dispatch(updateGame(data));
+  }
 });
 
 const MainContainer = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Main);
 
 export default MainContainer;
